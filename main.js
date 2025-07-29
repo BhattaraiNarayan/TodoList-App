@@ -45,7 +45,7 @@ if (e.target.innerHTML === "Edit") {
   input.focus();
   input.selectionStart = input.selectionEnd = input.value.length;
 }, 0);
-  addBtn.textContent = "Edit";
+  addBtn.textContent = "Update";
 }
 
 
