@@ -36,9 +36,19 @@ input.value = '';
 const updateTodo = (e) =>{
   if(e.target.innerHTML === "Delete"){
     todoList.removeChild(e.target.parentElement);
+    input.value = "";
   }
+if (e.target.innerHTML === "Edit") {
+  input.value = e.target.previousElementSibling.previousElementSibling.innerHTML;
+  //input.focus();
+  setTimeout(() => {
+  input.focus();
+  input.selectionStart = input.selectionEnd = input.value.length;
+}, 0);
+  addBtn.textContent = "Edit";
+}
 
-  
+
 }
 
 
