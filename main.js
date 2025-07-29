@@ -4,6 +4,7 @@ const addBtn = document.getElementById('add-btn');
 const todoList = document.getElementById('todo-list');
 
 
+//starting function here.
 const addField = () => {
   const task = input.value.trim();
   
@@ -32,15 +33,19 @@ input.value = '';
 };
 
 //EditFunction
-const editTodo = (e) =>{
-  console.log(e.target.innerHTML);
+const updateTodo = (e) =>{
+  if(e.target.innerHTML === "Delete"){
+    todoList.removeChild(e.target.parentElement);
+  }
+
+  
 }
 
 
 
 //EventListener
 addBtn.addEventListener('click', addField);
-todoList.addEventListener('click',editTodo);
+todoList.addEventListener('click',updateTodo);
 
 
 //when i press the enter key,it directly goes to the addBtn
