@@ -4,57 +4,68 @@ const addBtn = document.getElementById('add-btn');
 const todoList = document.getElementById('todo-list');
 
 
-//starting function here.
-const addField = () => {
+let editTodo = null;  // globally defined variable
+
+const addTodo = () => {
   const task = input.value.trim();
-  
-  if (task) {
+  if (!task) return;
+
+  if (addBtn.value === "Update") {
+    // Fix: Use `task`, not `inputText`
+    editTodo.querySelector("p").innerHTML = task;
+    addBtn.value = "Add";
+    addBtn.textContent = "Add";
+    input.value = "";
+    editTodo = null;
+  } else {
     const li = document.createElement('li');
-    const p= document.createElement('p')
+    const p = document.createElement('p');
     p.innerHTML = task;
     li.appendChild(p);
 
-//creating Delete Button
-const deleteBtn=document.createElement("button");
-deleteBtn.innerHTML="Delete";
-deleteBtn.classList.add("btn","deleteBtn")
-li.appendChild(deleteBtn);
+    // Delete Button
+    const deleteBtn = document.createElement("button");
+    deleteBtn.innerHTML = "Delete";
+    deleteBtn.classList.add("btn", "deleteBtn");
+    li.appendChild(deleteBtn);
 
-//creating Edit Button
-const editBtn=document.createElement("button");
-editBtn.innerHTML="Edit";
-editBtn.classList.add("btn","editBtn");
-li.appendChild(editBtn);
+    // Edit Button
+    const editBtn = document.createElement("button");
+    editBtn.innerHTML = "Edit";
+    editBtn.classList.add("btn", "editBtn");
+    li.appendChild(editBtn);
 
-
-todoList.appendChild(li);
-input.value = '';   
+    todoList.appendChild(li);
+    input.value = '';
   }
 };
 
-//EditFunction
-const updateTodo = (e) =>{
-  if(e.target.innerHTML === "Delete"){
+// Edit/Delete handler
+const updateTodo = (e) => {
+  if (e.target.innerHTML === "Delete") {
     todoList.removeChild(e.target.parentElement);
     input.value = "";
+    return;
   }
-if (e.target.innerHTML === "Edit") {
-  input.value = e.target.previousElementSibling.previousElementSibling.innerHTML;
-  //input.focus();
-  setTimeout(() => {
-  input.focus();
-  input.selectionStart = input.selectionEnd = input.value.length;
-}, 0);
-  addBtn.textContent = "Update";
-}
 
+  if (e.target.innerHTML === "Edit") {
+    const li = e.target.parentElement;
+    const p = li.querySelector("p");
+    input.value = p.innerHTML;
+    addBtn.value = "Update";  // Set correct value
+    addBtn.textContent = "Update";
+    editTodo = li;  // Fix: store the <li>, not the event
 
-}
-
+    setTimeout(() => {
+      input.focus();
+      input.selectionStart = input.selectionEnd = input.value.length;
+    }, 0);
+  }
+};
 
 
 //EventListener
-addBtn.addEventListener('click', addField);
+addBtn.addEventListener('click', addTodo);
 todoList.addEventListener('click',updateTodo);
 
 
