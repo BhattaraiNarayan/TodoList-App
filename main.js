@@ -42,13 +42,13 @@ const addTodo = () => {
 
 // Edit/Delete handler
 const updateTodo = (e) => {
-  if (e.target.innerHTML === "Delete") {
+  if (e.target.classList.contains("deleteBtn")) {
     todoList.removeChild(e.target.parentElement);
     input.value = "";
     return;
   }
 
-  if (e.target.innerHTML === "Edit") {
+  if (e.target.classList.contains("editBtn")) {
     const li = e.target.parentElement;
     const p = li.querySelector("p");
     input.value = p.innerHTML;
