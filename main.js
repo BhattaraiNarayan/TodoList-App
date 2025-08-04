@@ -37,8 +37,11 @@ const addTodo = () => {
 
     todoList.appendChild(li);
     input.value = '';
+
+    saveLocalTodo(task);  //saving data in localStorage
   }
 };
+
 
 // Edit/Delete handler
 const updateTodo = (e) => {
@@ -63,6 +66,15 @@ const updateTodo = (e) => {
   }
 };
 
+
+//Saving Data in LocalStorage
+const saveLocalTodo = (todo) =>{
+
+let todoData = [];
+todoData.push(todo);
+console.log(todoData);
+
+}
 
 //EventListener
 addBtn.addEventListener('click', addTodo);
